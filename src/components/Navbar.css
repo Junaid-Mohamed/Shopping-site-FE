@@ -1,0 +1,23 @@
+/* Navbar.css */
+.navbar {
+    padding: 1rem;
+  }
+  
+  .navbar .form-inline input {
+    width: 350px; /* Adjust width as needed */
+  }
+  
+  .navbar .navbar-icons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar .navbar-icons .nav-link {
+    margin-left: 20px;
+    color: #666;
+  }
+
+.navbar .navbar-icons .nav-link:hover {
+    color: #000;
+}
+  
