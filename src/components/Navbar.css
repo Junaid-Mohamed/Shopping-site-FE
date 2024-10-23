@@ -1,8 +1,13 @@
 /* Navbar.css */
 .navbar {
     padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
   }
   
+  .navbar-brand{
+    font-size: 1.4rem;
+  }
+
   .navbar .form-inline input {
     width: 350px; /* Adjust width as needed */
   }
@@ -10,6 +15,7 @@
   .navbar .navbar-icons {
     display: flex;
     align-items: center;
+    font-size: 1rem;
   }
   
   .navbar .navbar-icons .nav-link {
