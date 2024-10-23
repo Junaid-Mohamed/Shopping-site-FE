@@ -21,6 +21,7 @@
   .navbar .navbar-icons .nav-link {
     margin-left: 20px;
     color: #666;
+    padding: 0 7px;
   }
 
 .navbar .navbar-icons .nav-link:hover {
