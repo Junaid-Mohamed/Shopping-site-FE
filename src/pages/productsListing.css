@@ -1,0 +1,104 @@
+.products-page{
+    display: flex;
+    /* justify-content: space-evenly; */
+}
+
+.filters-container{
+    padding: 1.5rem;
+    /* position: fixed; */
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    
+    width: 25%;
+}
+
+.products-container{
+    background-color: rgb(236, 231, 231);
+    width: 75%;
+    padding: 1.5rem;
+}
+
+.filter-heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.filter-price h4 {
+    font-size: 1.2rem;
+}
+
+.price-labels {
+    display: flex;
+    justify-content: space-between; /* Spread labels evenly */
+    margin-bottom: 10px; /* Space between labels and slider */
+}
+
+.filter-price {
+    margin: 20px 0;
+}
+
+.price-labels {
+    display: flex;
+    color: #666;
+    justify-content: space-between; /* Spread labels evenly */
+    margin-bottom: 10px; /* Space between labels and slider */
+}
+
+.category-labels{
+    display: flex;
+    flex-direction: column;
+    color: #666;
+}
+
+.filter-rating{
+    margin: 20px 0;
+}
+
+.rating-labels, .sort-labels{
+    color: #666;
+    display: flex;
+    flex-direction: column;
+}
+
+.products-container h2{
+    padding-left: 20px;
+}
+
+.products-container h2 span {
+    color: #666;
+    font-size: 1rem;
+    
+}
+
+
+
+
+
+
+/* Style the range input */
+input[type="range"] {
+    -webkit-appearance: none; /* Remove default styles in WebKit browsers */
+    width: 100%; /* Full width */
+    height: 10px; /* Thicker track */
+    background: #d3d3d3; /* Gray track color */
+    border-radius: 5px; /* Rounded corners */
+    outline: none; /* Remove outline */
+}
+
+/* Style the slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default styles */
+    appearance: none; /* Remove default styles */
+    width: 20px; /* Thumb width */
+    height: 20px; /* Thumb height */
+    border-radius: 50%; /* Rounded thumb */
+    background: #666; /* Thumb color */
+    cursor: pointer; /* Pointer on hover */
+    border: 2px solid #fff; /* White border around thumb */
+}
+
+
+
