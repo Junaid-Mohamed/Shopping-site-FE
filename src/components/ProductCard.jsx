@@ -2,7 +2,7 @@ import fruits from "../assets/images/fruits&veggies.jpg";
 import "./productCard.css";
 
 const ProductCard = ({product, addToCart, addToWishlist}) => {
-    console.log(product)
+
     return(
         <div className="product-card">
             <img src={product.image} alt="product" className="product-image" />

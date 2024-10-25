@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Navbar from "../components/Navbar";
 import ProductCard from "../components/ProductCard";
 import './productsListing.css';
@@ -8,8 +8,8 @@ const ProductListing = () => {
     
     const [products, setProducts] = useState([]);
     const [filters,setFilters] = useState({
-        price: 50,
-        category: "All",
+        price: 0,
+        category: [],
         rating: 0,
         sort: "price-asc"
     });
@@ -17,12 +17,12 @@ const ProductListing = () => {
     useEffect(()=>{
         const fetchProducts = async()=>{
             const data = await axios.get("http://localhost:3000/api/products");
-            console.log(data.data.data.products);
             setProducts(data.data.data.products);
         }
 
         fetchProducts();
-    },[])
+        console.log(filters)
+    },[filters])
 
     const handleFilterChange = (e) => {
         const {name, value, checked} = e.target;
@@ -39,15 +39,18 @@ const ProductListing = () => {
                 }
             })
         }
+        else if(name === "price"){
+            setFilters((prevState)=>({
+                ...prevState,
+                [name]: Number(value)
+            }))
+        }
         else{
             setFilters((prevState)=>({
                 ...prevState,
                 [name]: value
         }))  
-        }
-
-        console.log(filters);
-        
+        }  
     }
 
    const addToCart = (product) => {
@@ -57,6 +60,35 @@ const ProductListing = () => {
    const addToWishlist = (product) => {
     console.log(product, "adding to wishlist")
    }
+
+   const filteredAndSortedProducts = useMemo(() => {
+
+    let filteredProducts = products.filter((product)=>{
+
+        const categoryMatch = filters.category.length === 0 || filters.category.includes(product.category);
+
+        const ratingMatch = product.rating >= filters.rating;
+
+        const priceMatch = filters.price === 0 || product.price <= filters.price;
+
+        return categoryMatch && ratingMatch && priceMatch;
+    })
+
+    if(filters.sort === "price-asc"){
+        filteredProducts = filteredProducts.sort((a,b)=> a.price - b.price);
+    } else if( filters.sort === "price-desc"){
+        filteredProducts = filteredProducts.sort((a,b)=> b.price - a.price);
+    }
+
+    return filteredProducts;
+   },[products, filters])
+  
+//    const filteredAndSortedProducts = getFilteredAndSortedProducts();
+
+//    const productsList = filteredAndSortedProducts.length > 0 ? filteredAndSortedProducts : products;
+//    console.log(productsList);
+
+   const productList = filteredAndSortedProducts.length > 0 ? filteredAndSortedProducts : products;
 
     return (
         <>
@@ -75,12 +107,14 @@ const ProductListing = () => {
                             <span>100</span>
                             <span>150</span>
                             <span>200</span>
+                            <span>250</span>
+                            <span>300</span>
                         </div>
 
                     <input type="range"
                         min="50"
-                        max="200"
                         step="50"
+                        max="300"
                         name="price"
                         value={filters.price}
                         onChange={handleFilterChange}
@@ -91,8 +125,9 @@ const ProductListing = () => {
                 <div className="filter-category">
                     <h4>Category</h4>
                     <div className="category-labels" >
-                    <label htmlFor="category"><input type="checkbox" value="ruits & Vegetables" onChange={handleFilterChange} name="category"/> Fruits & Vegetables</label>
-                    <label htmlFor="category"><input type="checkbox" value="Dairy & Eggs" onChange={handleFilterChange} name="category"/> Dairy & Eggs</label>
+                    <label htmlFor="category"><input type="checkbox" value="Fruits" onChange={handleFilterChange} name="category"/> Fruits</label>
+                    <label htmlFor="category"><input type="checkbox" value="Vegetables" onChange={handleFilterChange} name="category"/> Vegetables</label>
+                    <label htmlFor="category"><input type="checkbox" value="Dairy" onChange={handleFilterChange} name="category"/> Dairy & Eggs</label>
                     <label htmlFor="category"><input type="checkbox" value="Beverages" onChange={handleFilterChange} name="category"/> Beverages</label>
                     <label htmlFor="category"><input type="checkbox" value="Bakery" onChange={handleFilterChange} name="category"/> Bakery</label>
                     <label htmlFor="category"><input type="checkbox" value="Snacks" onChange={handleFilterChange} name="category"/> Snacks</label>
@@ -101,28 +136,31 @@ const ProductListing = () => {
                 <div className="filter-rating" >
                     <h4>Rating</h4>
                     <div className="rating-labels" >
-                        <label htmlFor=""><input type="radio" name="rating" value={4}/> 4 Stars & above</label>
-                        <label htmlFor=""><input type="radio" name="rating" value={3}/> 3 Stars & above</label>
-                        <label htmlFor=""><input type="radio" name="rating" value={2}/> 2 Stars & above</label>
-                        <label htmlFor=""><input type="radio" name="rating" value={1}/> 1 Star & above</label>
+                        <label><input onChange={handleFilterChange} type="radio" name="rating" value={4}/> 4 Stars & above</label>
+                        <label><input onChange={handleFilterChange} type="radio" name="rating" value={3}/> 3 Stars & above</label>
+                        <label><input onChange={handleFilterChange} type="radio" name="rating" value={2}/> 2 Stars & above</label>
+                        <label><input onChange={handleFilterChange} type="radio" name="rating" value={1}/> 1 Star & above</label>
                     </div>
                 </div>
                 <div className="filter-sort-price">
                     <h4>Sort by</h4>
                     <div className="sort-labels" >
-                        <label htmlFor=""><input type="radio" name="sort" value="price-asc"/> Price - Low to High </label>
-                        <label htmlFor=""><input type="radio" name="sort" value="price-desc"/> Price - High to Low </label>
+                        <label ><input onChange={handleFilterChange} type="radio" name="sort" value="price-asc"/> Price - Low to High </label>
+                        <label ><input onChange={handleFilterChange} type="radio" name="sort" value="price-desc"/> Price - High to Low </label>
                     </div>
                 </div>
             </div>
+
+        {/* Products container */}
+
             <div className="products-container">
-                <h2>Showing All Groceries <span>(Showing all {products.length} products)</span> </h2>
+                <h2>Showing All Groceries <span>(Showing all {filteredAndSortedProducts.length} products)</span> </h2>
                 <div className="row">
                     
-                    {products.map(product=>(
-                        <div className="col-md-4" >
+                    {filteredAndSortedProducts.map(product=>(
+                        <div key={product._id} className="col-md-4" >
                         <ProductCard
-                        key={product.id}
+                        key={product._id}
                         product={product}
                         addToCart={addToCart}
                         addToWishlist={addToWishlist}
