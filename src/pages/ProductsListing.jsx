@@ -1,18 +1,28 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import ProductCard from "../components/ProductCard";
-import productData from "./products.json";
 import './productsListing.css';
 
 const ProductListing = () => {
     
-    const [products, setProducts] = useState(productData);
+    const [products, setProducts] = useState([]);
     const [filters,setFilters] = useState({
         price: 50,
         category: "All",
         rating: 0,
         sort: "price-asc"
     });
+
+    useEffect(()=>{
+        const fetchProducts = async()=>{
+            const data = await axios.get("http://localhost:3000/api/products");
+            console.log(data.data.data.products);
+            setProducts(data.data.data.products);
+        }
+
+        fetchProducts();
+    },[])
 
     const handleFilterChange = (e) => {
         const {name, value, checked} = e.target;
@@ -106,10 +116,10 @@ const ProductListing = () => {
                 </div>
             </div>
             <div className="products-container">
-                <h2>Showing All Groceries <span>(Showing all {productData.length} products)</span> </h2>
+                <h2>Showing All Groceries <span>(Showing all {products.length} products)</span> </h2>
                 <div className="row">
                     
-                    {productData.map(product=>(
+                    {products.map(product=>(
                         <div className="col-md-4" >
                         <ProductCard
                         key={product.id}
