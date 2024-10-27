@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactDom from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App.jsx';
+import { AuthProvider } from './auth/AuthProvider.jsx';
+import ProtectedRoute from './auth/ProtectedRoute.jsx';
 import './index.css';
 import Login from './pages/Login.jsx';
 import ProductDetails from './pages/ProductDetails.jsx';
@@ -17,11 +19,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/products',
-    element: <ProductListing />,
+    element: <ProtectedRoute element={<ProductListing />} /> ,
   },
   {
     path: '/products/:id',
-    element: <ProductDetails />,
+    element: <ProtectedRoute element={<ProductDetails/>} />,
   },
   {
     path: '/login',
@@ -34,5 +36,8 @@ const router = createBrowserRouter([
 ]);
 
 ReactDom.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
+  <AuthProvider>
+    <RouterProvider router={router} />
+  </AuthProvider>
+  
 );
