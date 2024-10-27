@@ -1,10 +1,23 @@
 import fruits from '../assets/images/fruits&veggies.jpg';
+import { useWishlist } from '../pages/context/WishlistProvider';
 import './productCard.css';
 
-const ProductCard = ({ product, addToCart, addToWishlist }) => {
+const ProductCard = ({ product }) => {
+  const { addToWishlist, removeFromWishlist } = useWishlist();
+
+  const handleProductClick = (productId) => {
+    console.log(productId);
+    navigate(`/products/${productId}`);
+  };
+
   return (
     <div className="product-card">
-      <img src={product.image} alt="product" className="product-image" />
+      <img
+        onClick={() => handleProductClick(product._id)}
+        src={product.image}
+        alt="product"
+        className="product-image"
+      />
       <div className="product-details">
         <h3 className="product-name">{product.name}</h3>
         <p className="product-price">{product.price}</p>
@@ -17,7 +30,7 @@ const ProductCard = ({ product, addToCart, addToWishlist }) => {
           </button>
           <button
             className="btn btn-secondary"
-            onClick={() => addToWishlist(product)}
+            onClick={() => addToWishlist(product._id)}
           >
             Add to Wishlist
           </button>

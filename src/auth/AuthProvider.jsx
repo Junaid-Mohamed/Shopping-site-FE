@@ -17,8 +17,13 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
   };
 
+  const getUserId = () => {
+    if (isAuthenticated) return localStorage.getItem('authToken');
+    return null;
+  };
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, getUserId }}>
       {children}
     </AuthContext.Provider>
   );

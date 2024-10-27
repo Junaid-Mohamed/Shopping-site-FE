@@ -39,10 +39,21 @@ const Navbar = () => {
               Login
             </Link>
           )}
-          <Link to="" className="nav-link">
+          {isAuthenticated ? (
+            <Link
+              onClick={() => navigate('/users/user-profile')}
+              to=""
+              className="nav-link"
+            >
+              <i className="fas fa-user-circle"></i>
+            </Link>
+          ) : (
+            ''
+          )}
+          <Link to="/users/wishlist" className="nav-link">
             <i className="fas fa-heart"></i>
           </Link>
-          <Link to="" className="nav-link">
+          <Link to="/users/cart" className="nav-link">
             <i className="fas fa-shopping-cart"> Cart</i>
           </Link>
         </div>

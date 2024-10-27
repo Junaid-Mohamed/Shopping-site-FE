@@ -32,7 +32,6 @@ const StarRating = ({ rating }) => {
 
 const ProductDetails = () => {
   const { id } = useParams();
-  console.log(id);
   const [product, setProduct] = useState({});
 
   useEffect(() => {

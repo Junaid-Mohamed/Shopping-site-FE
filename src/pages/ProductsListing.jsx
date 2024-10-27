@@ -6,6 +6,7 @@ import ProductCard from '../components/ProductCard';
 import './productsListing.css';
 
 const ProductListing = () => {
+  const [loading, setLoading] = useState('Products are loading...');
   const location = useLocation();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
@@ -20,6 +21,7 @@ const ProductListing = () => {
     const fetchProducts = async () => {
       const data = await axios.get('http://localhost:3000/api/products');
       setProducts(data.data.data.products);
+      setLoading('');
     };
     fetchProducts();
 
@@ -59,13 +61,13 @@ const ProductListing = () => {
     }
   };
 
-  const addToCart = (product) => {
-    console.log(product, 'adding to cart');
-  };
+  //   const addToCart = (product) => {
+  //     console.log(product, 'adding to cart');
+  //   };
 
-  const addToWishlist = (product) => {
-    console.log(product, 'adding to wishlist');
-  };
+  //   const addToWishlist = (product) => {
+  //     console.log(product, 'adding to wishlist');
+  //   };
 
   const filteredAndSortedProducts = useMemo(() => {
     let filteredProducts = products.filter((product) => {
@@ -88,11 +90,6 @@ const ProductListing = () => {
 
     return filteredProducts;
   }, [products, filters]);
-
-  const handleProductClick = (productId) => {
-    console.log(productId);
-    navigate(`/products/${productId}`);
-  };
 
   return (
     <>
@@ -259,6 +256,7 @@ const ProductListing = () => {
         {/* Products container */}
 
         <div className="products-container">
+          <p>{loading}</p>
           <h2>
             Showing All Groceries{' '}
             <span>
@@ -269,15 +267,10 @@ const ProductListing = () => {
             {filteredAndSortedProducts.map((product) => (
               <div
                 key={product._id}
-                onClick={() => handleProductClick(product._id)}
+                // onClick={() => handleProductClick(product._id)}
                 className="col-md-4"
               >
-                <ProductCard
-                  key={product._id}
-                  product={product}
-                  addToCart={addToCart}
-                  addToWishlist={addToWishlist}
-                />
+                <ProductCard key={product._id} product={product} />
               </div>
             ))}
           </div>

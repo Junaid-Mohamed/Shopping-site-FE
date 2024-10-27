@@ -24,10 +24,11 @@ const Login = () => {
         formData
       );
       if (data.status == 200) {
+        console.log(data);
         setSuccessMsg('Logged in successfully.');
         setTimeout(() => {
           setSuccessMsg('');
-          login('authenticated');
+          login(data.data.userId);
           navigate(from, { replace: true });
         }, 2000);
       }
