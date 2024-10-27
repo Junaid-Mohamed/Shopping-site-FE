@@ -1,42 +1,286 @@
 [
-    { "id": 1, "name": "Fresh Tomatoes", "price": 30, "category": "Vegetables", "rating": 4.5, "image": "path_to_image" },
-    { "id": 2, "name": "Organic Spinach", "price": 50, "category": "Vegetables", "rating": 4.7, "image": "path_to_image" },
-    { "id": 3, "name": "Carrot", "price": 40, "category": "Vegetables", "rating": 4.3, "image": "path_to_image" },
-    { "id": 4, "name": "Broccoli", "price": 70, "category": "Vegetables", "rating": 4.8, "image": "path_to_image" },
-    { "id": 5, "name": "Green Peas", "price": 60, "category": "Vegetables", "rating": 4.6, "image": "path_to_image" },
-    { "id": 6, "name": "Bell Pepper", "price": 90, "category": "Vegetables", "rating": 4.4, "image": "path_to_image" },
-    { "id": 7, "name": "Potato", "price": 20, "category": "Vegetables", "rating": 4.1, "image": "path_to_image" },
-  
-    { "id": 8, "name": "Apple", "price": 120, "category": "Fruits", "rating": 4.7, "image": "path_to_image" },
-    { "id": 9, "name": "Banana", "price": 30, "category": "Fruits", "rating": 4.5, "image": "path_to_image" },
-    { "id": 10, "name": "Orange", "price": 60, "category": "Fruits", "rating": 4.6, "image": "path_to_image" },
-    { "id": 11, "name": "Strawberry", "price": 200, "category": "Fruits", "rating": 4.8, "image": "path_to_image" },
-    { "id": 12, "name": "Blueberries", "price": 300, "category": "Fruits", "rating": 4.9, "image": "path_to_image" },
-    { "id": 13, "name": "Pineapple", "price": 80, "category": "Fruits", "rating": 4.4, "image": "path_to_image" },
-    { "id": 14, "name": "Grapes", "price": 100, "category": "Fruits", "rating": 4.6, "image": "path_to_image" },
-  
-    { "id": 15, "name": "Whole Milk", "price": 50, "category": "Dairy", "rating": 4.6, "image": "path_to_image" },
-    { "id": 16, "name": "Greek Yogurt", "price": 70, "category": "Dairy", "rating": 4.7, "image": "path_to_image" },
-    { "id": 17, "name": "Cheddar Cheese", "price": 150, "category": "Dairy", "rating": 4.8, "image": "path_to_image" },
-    { "id": 18, "name": "Butter", "price": 120, "category": "Dairy", "rating": 4.5, "image": "path_to_image" },
-    { "id": 19, "name": "Cream Cheese", "price": 100, "category": "Dairy", "rating": 4.7, "image": "path_to_image" },
-    { "id": 20, "name": "Paneer", "price": 180, "category": "Dairy", "rating": 4.8, "image": "path_to_image" },
-    { "id": 21, "name": "Almond Milk", "price": 200, "category": "Dairy", "rating": 4.9, "image": "path_to_image" },
-  
-    { "id": 22, "name": "Salted Chips", "price": 40, "category": "Snacks", "rating": 4.3, "image": "path_to_image" },
-    { "id": 23, "name": "Granola Bars", "price": 90, "category": "Snacks", "rating": 4.5, "image": "path_to_image" },
-    { "id": 24, "name": "Pretzels", "price": 60, "category": "Snacks", "rating": 4.4, "image": "path_to_image" },
-    { "id": 25, "name": "Popcorn", "price": 80, "category": "Snacks", "rating": 4.7, "image": "path_to_image" },
-    { "id": 26, "name": "Trail Mix", "price": 120, "category": "Snacks", "rating": 4.6, "image": "path_to_image" },
-    { "id": 27, "name": "Cookies", "price": 100, "category": "Snacks", "rating": 4.5, "image": "path_to_image" },
-    { "id": 28, "name": "Nachos", "price": 150, "category": "Snacks", "rating": 4.8, "image": "path_to_image" },
-  
-    { "id": 29, "name": "Orange Juice", "price": 100, "category": "Beverages", "rating": 4.5, "image": "path_to_image" },
-    { "id": 30, "name": "Green Tea", "price": 150, "category": "Beverages", "rating": 4.7, "image": "path_to_image" },
-    { "id": 31, "name": "Cold Coffee", "price": 200, "category": "Beverages", "rating": 4.6, "image": "path_to_image" },
-    { "id": 32, "name": "Smoothie", "price": 250, "category": "Beverages", "rating": 4.8, "image": "path_to_image" },
-    { "id": 33, "name": "Coconut Water", "price": 90, "category": "Beverages", "rating": 4.6, "image": "path_to_image" },
-    { "id": 34, "name": "Lemonade", "price": 80, "category": "Beverages", "rating": 4.5, "image": "path_to_image" },
-    { "id": 35, "name": "Energy Drink", "price": 180, "category": "Beverages", "rating": 4.7, "image": "path_to_image" }
-  ]
-  
+  {
+    "id": 1,
+    "name": "Fresh Tomatoes",
+    "price": 30,
+    "category": "Vegetables",
+    "rating": 4.5,
+    "image": "path_to_image"
+  },
+  {
+    "id": 2,
+    "name": "Organic Spinach",
+    "price": 50,
+    "category": "Vegetables",
+    "rating": 4.7,
+    "image": "path_to_image"
+  },
+  {
+    "id": 3,
+    "name": "Carrot",
+    "price": 40,
+    "category": "Vegetables",
+    "rating": 4.3,
+    "image": "path_to_image"
+  },
+  {
+    "id": 4,
+    "name": "Broccoli",
+    "price": 70,
+    "category": "Vegetables",
+    "rating": 4.8,
+    "image": "path_to_image"
+  },
+  {
+    "id": 5,
+    "name": "Green Peas",
+    "price": 60,
+    "category": "Vegetables",
+    "rating": 4.6,
+    "image": "path_to_image"
+  },
+  {
+    "id": 6,
+    "name": "Bell Pepper",
+    "price": 90,
+    "category": "Vegetables",
+    "rating": 4.4,
+    "image": "path_to_image"
+  },
+  {
+    "id": 7,
+    "name": "Potato",
+    "price": 20,
+    "category": "Vegetables",
+    "rating": 4.1,
+    "image": "path_to_image"
+  },
+
+  {
+    "id": 8,
+    "name": "Apple",
+    "price": 120,
+    "category": "Fruits",
+    "rating": 4.7,
+    "image": "path_to_image"
+  },
+  {
+    "id": 9,
+    "name": "Banana",
+    "price": 30,
+    "category": "Fruits",
+    "rating": 4.5,
+    "image": "path_to_image"
+  },
+  {
+    "id": 10,
+    "name": "Orange",
+    "price": 60,
+    "category": "Fruits",
+    "rating": 4.6,
+    "image": "path_to_image"
+  },
+  {
+    "id": 11,
+    "name": "Strawberry",
+    "price": 200,
+    "category": "Fruits",
+    "rating": 4.8,
+    "image": "path_to_image"
+  },
+  {
+    "id": 12,
+    "name": "Blueberries",
+    "price": 300,
+    "category": "Fruits",
+    "rating": 4.9,
+    "image": "path_to_image"
+  },
+  {
+    "id": 13,
+    "name": "Pineapple",
+    "price": 80,
+    "category": "Fruits",
+    "rating": 4.4,
+    "image": "path_to_image"
+  },
+  {
+    "id": 14,
+    "name": "Grapes",
+    "price": 100,
+    "category": "Fruits",
+    "rating": 4.6,
+    "image": "path_to_image"
+  },
+
+  {
+    "id": 15,
+    "name": "Whole Milk",
+    "price": 50,
+    "category": "Dairy",
+    "rating": 4.6,
+    "image": "path_to_image"
+  },
+  {
+    "id": 16,
+    "name": "Greek Yogurt",
+    "price": 70,
+    "category": "Dairy",
+    "rating": 4.7,
+    "image": "path_to_image"
+  },
+  {
+    "id": 17,
+    "name": "Cheddar Cheese",
+    "price": 150,
+    "category": "Dairy",
+    "rating": 4.8,
+    "image": "path_to_image"
+  },
+  {
+    "id": 18,
+    "name": "Butter",
+    "price": 120,
+    "category": "Dairy",
+    "rating": 4.5,
+    "image": "path_to_image"
+  },
+  {
+    "id": 19,
+    "name": "Cream Cheese",
+    "price": 100,
+    "category": "Dairy",
+    "rating": 4.7,
+    "image": "path_to_image"
+  },
+  {
+    "id": 20,
+    "name": "Paneer",
+    "price": 180,
+    "category": "Dairy",
+    "rating": 4.8,
+    "image": "path_to_image"
+  },
+  {
+    "id": 21,
+    "name": "Almond Milk",
+    "price": 200,
+    "category": "Dairy",
+    "rating": 4.9,
+    "image": "path_to_image"
+  },
+
+  {
+    "id": 22,
+    "name": "Salted Chips",
+    "price": 40,
+    "category": "Snacks",
+    "rating": 4.3,
+    "image": "path_to_image"
+  },
+  {
+    "id": 23,
+    "name": "Granola Bars",
+    "price": 90,
+    "category": "Snacks",
+    "rating": 4.5,
+    "image": "path_to_image"
+  },
+  {
+    "id": 24,
+    "name": "Pretzels",
+    "price": 60,
+    "category": "Snacks",
+    "rating": 4.4,
+    "image": "path_to_image"
+  },
+  {
+    "id": 25,
+    "name": "Popcorn",
+    "price": 80,
+    "category": "Snacks",
+    "rating": 4.7,
+    "image": "path_to_image"
+  },
+  {
+    "id": 26,
+    "name": "Trail Mix",
+    "price": 120,
+    "category": "Snacks",
+    "rating": 4.6,
+    "image": "path_to_image"
+  },
+  {
+    "id": 27,
+    "name": "Cookies",
+    "price": 100,
+    "category": "Snacks",
+    "rating": 4.5,
+    "image": "path_to_image"
+  },
+  {
+    "id": 28,
+    "name": "Nachos",
+    "price": 150,
+    "category": "Snacks",
+    "rating": 4.8,
+    "image": "path_to_image"
+  },
+
+  {
+    "id": 29,
+    "name": "Orange Juice",
+    "price": 100,
+    "category": "Beverages",
+    "rating": 4.5,
+    "image": "path_to_image"
+  },
+  {
+    "id": 30,
+    "name": "Green Tea",
+    "price": 150,
+    "category": "Beverages",
+    "rating": 4.7,
+    "image": "path_to_image"
+  },
+  {
+    "id": 31,
+    "name": "Cold Coffee",
+    "price": 200,
+    "category": "Beverages",
+    "rating": 4.6,
+    "image": "path_to_image"
+  },
+  {
+    "id": 32,
+    "name": "Smoothie",
+    "price": 250,
+    "category": "Beverages",
+    "rating": 4.8,
+    "image": "path_to_image"
+  },
+  {
+    "id": 33,
+    "name": "Coconut Water",
+    "price": 90,
+    "category": "Beverages",
+    "rating": 4.6,
+    "image": "path_to_image"
+  },
+  {
+    "id": 34,
+    "name": "Lemonade",
+    "price": 80,
+    "category": "Beverages",
+    "rating": 4.5,
+    "image": "path_to_image"
+  },
+  {
+    "id": 35,
+    "name": "Energy Drink",
+    "price": 180,
+    "category": "Beverages",
+    "rating": 4.7,
+    "image": "path_to_image"
+  }
+]
