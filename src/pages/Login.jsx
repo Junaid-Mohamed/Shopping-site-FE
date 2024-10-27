@@ -4,41 +4,42 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthProvider';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    const navigate = useNavigate();
-    const location = useLocation();
+  const { login } = useAuth();
 
-    const {login} = useAuth();
-
-    const from = location.state?.from || '/';
-    const [successMsg, setSuccessMsg] = useState("")
+  const from = location.state?.from || '/';
+  const [successMsg, setSuccessMsg] = useState('');
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
 
-  const handleFormSubmit = async(e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    try{
-        const data = await axios.post("http://localhost:3000/api/users/login", formData);
-        if(data.status == 200){
-            setSuccessMsg("Logged in successfully.")
-            setTimeout(()=>{
-                setSuccessMsg("");
-                login("authenticated")
-                navigate(from,{replace: true});
-            },2000)
-        }
-    }catch(error){
-        // console.log("Inside error");
-        setSuccessMsg(error.response.data.message);
-        setFormData((prevState)=>({
-            email: '',
-            password: '',
-          }))
-        // console.log(error.response.data.message);
+    try {
+      const data = await axios.post(
+        'http://localhost:3000/api/users/login',
+        formData
+      );
+      if (data.status == 200) {
+        setSuccessMsg('Logged in successfully.');
+        setTimeout(() => {
+          setSuccessMsg('');
+          login('authenticated');
+          navigate(from, { replace: true });
+        }, 2000);
+      }
+    } catch (error) {
+      // console.log("Inside error");
+      setSuccessMsg(error.response.data.message);
+      setFormData((prevState) => ({
+        email: '',
+        password: '',
+      }));
+      // console.log(error.response.data.message);
     }
-    
   };
 
   const handleFormDataChange = (e) => {
@@ -91,7 +92,7 @@ const Login = () => {
         Don't have an account?{' '}
         <span style={{ textDecoration: 'underline' }}>Sign Up</span>
       </Link>
-      <div className='mt-3' >{successMsg}</div>
+      <div className="mt-3">{successMsg}</div>
     </div>
   );
 };

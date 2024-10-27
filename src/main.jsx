@@ -19,11 +19,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/products',
-    element: <ProtectedRoute element={<ProductListing />} /> ,
+    element: <ProtectedRoute element={<ProductListing />} />,
   },
   {
     path: '/products/:id',
-    element: <ProtectedRoute element={<ProductDetails/>} />,
+    element: <ProtectedRoute element={<ProductDetails />} />,
   },
   {
     path: '/login',
@@ -39,5 +39,4 @@ ReactDom.createRoot(document.getElementById('root')).render(
   <AuthProvider>
     <RouterProvider router={router} />
   </AuthProvider>
-  
 );

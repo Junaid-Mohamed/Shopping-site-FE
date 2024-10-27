@@ -2,8 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthProvider';
 import './Navbar.css';
 const Navbar = () => {
-
-  const {isAuthenticated, logout} = useAuth();
+  const { isAuthenticated, logout } = useAuth();
 
   const navigate = useNavigate();
 
@@ -24,14 +23,22 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-icons">
-          {isAuthenticated?
-          <Link onClick={()=>{logout(); navigate('/')}} to="" className="nav-link">
-          Logout
-        </Link>
-          :
-          <Link to="/login" className="nav-link">
-            Login
-          </Link>}
+          {isAuthenticated ? (
+            <Link
+              onClick={() => {
+                logout();
+                navigate('/');
+              }}
+              to=""
+              className="nav-link"
+            >
+              Logout
+            </Link>
+          ) : (
+            <Link to="/login" className="nav-link">
+              Login
+            </Link>
+          )}
           <Link to="" className="nav-link">
             <i className="fas fa-heart"></i>
           </Link>
