@@ -10,6 +10,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import { useCart } from './context/CartProvider';
 import './productDetails.css';
 
 const StarRating = ({ rating }) => {
@@ -33,6 +34,8 @@ const StarRating = ({ rating }) => {
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
+
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -64,7 +67,12 @@ const ProductDetails = () => {
               alt={product.name}
             />
             <button className="btn btn-primary button">Buy Now</button>
-            <button className="btn btn-secondary button">Add to Cart</button>
+            <button
+              onClick={() => addToCart(product._id)}
+              className="btn btn-secondary button"
+            >
+              Add to Cart
+            </button>
           </div>
           <div className="details-container">
             <p className="description">

@@ -1,12 +1,16 @@
+import { useNavigate } from 'react-router-dom';
 import fruits from '../assets/images/fruits&veggies.jpg';
+import { useCart } from '../pages/context/CartProvider';
 import { useWishlist } from '../pages/context/WishlistProvider';
 import './productCard.css';
 
 const ProductCard = ({ product }) => {
-  const { addToWishlist, removeFromWishlist } = useWishlist();
+  const { addToWishlist } = useWishlist();
+  const { addToCart } = useCart();
+
+  const navigate = useNavigate();
 
   const handleProductClick = (productId) => {
-    console.log(productId);
     navigate(`/products/${productId}`);
   };
 
@@ -24,7 +28,7 @@ const ProductCard = ({ product }) => {
         <div className="product-actions">
           <button
             className="btn btn-primary"
-            onClick={() => addToCart(product)}
+            onClick={() => addToCart(product._id)}
           >
             Add to Cart
           </button>

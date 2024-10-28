@@ -16,8 +16,7 @@ export const WishlistProvider = ({ children }) => {
         const response = await axios.get(
           `http://localhost:3000/api/users/wishlist/${userId}`
         );
-        console.log(response);
-        setWishlist(response.data || ['no']);
+        setWishlist(response.data || []);
       } catch (error) {
         console.log(`error fetching wishlist`, error);
       }
@@ -43,10 +42,15 @@ export const WishlistProvider = ({ children }) => {
   };
 
   const removeFromWishlist = async (productId) => {
+    console.log('console.log');
+    const prod = { userId, productId };
+    console.log(prod);
     try {
-      const resp = await axios.post(
-        'http://localhost:3000/api/users/wishlist/remove-from-wishlist/'
+      const resp = await axios.delete(
+        'http://localhost:3000/api/users/wishlist/remove-from-wishlist',
+        { data: prod }
       );
+      console.log(resp);
       if (resp.status == 200) {
         setWishlist(wishlist.filter((id) => id.toString() !== productId));
       }
