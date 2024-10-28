@@ -3,7 +3,7 @@ import { useCart } from '../pages/context/CartProvider';
 import { useWishlist } from '../pages/context/WishlistProvider';
 import './wishlistCard.css';
 
-const WishlistCard = ({ product }) => {
+const WishlistCard = ({ product, handleMessage }) => {
   const { removeFromWishlist } = useWishlist();
   const { addToCart } = useCart();
   const navigate = useNavigate();
@@ -17,7 +17,10 @@ const WishlistCard = ({ product }) => {
       <button
         onClick={() => {
           addToCart(product._id);
-          navigate('/users/cart');
+          handleMessage('Item moved to cart');
+          setTimeout(() => {
+            navigate('/users/cart');
+          }, 2000);
         }}
         style={{ width: '100%' }}
         className="btn btn-secondary"
@@ -27,7 +30,10 @@ const WishlistCard = ({ product }) => {
       <button
         onClick={() => {
           removeFromWishlist(product._id);
-          window.location.reload();
+          handleMessage('Item removed from wishlist');
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         }}
         style={{ width: '100%', marginTop: '10px' }}
         className="btn btn-danger"

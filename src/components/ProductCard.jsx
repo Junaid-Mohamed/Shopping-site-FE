@@ -4,7 +4,7 @@ import { useCart } from '../pages/context/CartProvider';
 import { useWishlist } from '../pages/context/WishlistProvider';
 import './productCard.css';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, handleMessage }) => {
   const { addToWishlist } = useWishlist();
   const { addToCart } = useCart();
 
@@ -28,13 +28,19 @@ const ProductCard = ({ product }) => {
         <div className="product-actions">
           <button
             className="btn btn-primary"
-            onClick={() => addToCart(product._id)}
+            onClick={() => {
+              addToCart(product._id);
+              handleMessage('Item added to cart.');
+            }}
           >
             Add to Cart
           </button>
           <button
             className="btn btn-secondary"
-            onClick={() => addToWishlist(product._id)}
+            onClick={() => {
+              addToWishlist(product._id);
+              handleMessage('Item added to wishlist.');
+            }}
           >
             Add to Wishlist
           </button>

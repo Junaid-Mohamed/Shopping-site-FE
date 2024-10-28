@@ -1,28 +1,45 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import CartCard from '../components/CartCard';
 import Navbar from '../components/Navbar';
 import './cart.css';
 import { useCart } from './context/CartProvider';
+import { useSearch } from './context/SerachProvider';
 
 const Cart = () => {
+  const { search } = useSearch();
+
   const { cart, totalPrice, fetchCart } = useCart();
+
+  const [message, setMessage] = useState('');
+
+  const handleMessage = (msg) => {
+    setMessage(msg);
+    setTimeout(() => {
+      setMessage('');
+    }, 2000);
+  };
 
   useEffect(() => {
     fetchCart();
   }, []);
 
+  const filteredCart = cart.filter((item) =>
+    item.product.name.toLowerCase().includes(search.toLowerCase())
+  );
   return (
     <main className="cart">
       <Navbar />
 
       <div className="my-4 text-center">
         <h1>My Cart ({cart.length}) </h1>
+        <h3 style={{ color: 'green' }}>{message}</h3>
         {cart.length > 0 ? (
           <div className="cart-container">
             <div className="cart-items mt-2">
-              {cart.map((item) => (
+              {filteredCart.map((item) => (
                 <CartCard
                   key={item.product._id}
+                  handleMessage={handleMessage}
                   product={item.product}
                   quantity={item.quantity}
                 />

@@ -15,6 +15,7 @@ import Signup from './pages/Signup.jsx';
 import UserProfile from './pages/UserProfile.jsx';
 import Wishlist from './pages/Wishlist.jsx';
 import { CartProvider } from './pages/context/CartProvider.jsx';
+import { SearchProvider } from './pages/context/SerachProvider.jsx';
 import { WishlistProvider } from './pages/context/WishlistProvider.jsx';
 
 const router = createBrowserRouter([
@@ -54,10 +55,12 @@ const router = createBrowserRouter([
 
 ReactDom.createRoot(document.getElementById('root')).render(
   <AuthProvider>
-    <CartProvider>
-      <WishlistProvider>
-        <RouterProvider router={router} />
-      </WishlistProvider>
-    </CartProvider>
+    <SearchProvider>
+      <CartProvider>
+        <WishlistProvider>
+          <RouterProvider router={router} />
+        </WishlistProvider>
+      </CartProvider>
+    </SearchProvider>
   </AuthProvider>
 );

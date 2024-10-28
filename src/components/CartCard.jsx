@@ -2,7 +2,7 @@ import { useCart } from '../pages/context/CartProvider';
 import { useWishlist } from '../pages/context/WishlistProvider';
 import './cartCard.css';
 
-const CartCard = ({ product, quantity }) => {
+const CartCard = ({ product, quantity, handleMessage }) => {
   const { addToWishlist } = useWishlist();
   const { removeFromCart } = useCart();
 
@@ -24,7 +24,8 @@ const CartCard = ({ product, quantity }) => {
         <button
           onClick={() => {
             removeFromCart(product._id);
-            window.location.reload();
+            // window.location.reload();
+            handleMessage('Item removed from cart');
           }}
           className="btn btn-secondary btn-cart"
         >
@@ -34,7 +35,11 @@ const CartCard = ({ product, quantity }) => {
           onClick={() => {
             addToWishlist(product._id);
             removeFromCart(product._id);
-            window.location.reload();
+            setTimeout(() => {
+              window.location.reload();
+            }, 3000);
+
+            handleMessage('Item moved to wishlist');
           }}
           className="btn btn-wishlist"
         >

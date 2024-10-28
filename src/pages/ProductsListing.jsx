@@ -3,12 +3,15 @@ import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
+import { useSearch } from './context/SerachProvider';
 import './productsListing.css';
 
 const ProductListing = () => {
+  const { search } = useSearch();
+
   const [loading, setLoading] = useState('Products are loading...');
+  const [message, setMessage] = useState('');
   const location = useLocation();
-  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [filters, setFilters] = useState({
     price: 0,
@@ -33,6 +36,13 @@ const ProductListing = () => {
       category: categoryArray,
     }));
   }, [location]);
+
+  const handleMessage = (msg) => {
+    setMessage(msg);
+    setTimeout(() => {
+      setMessage('');
+    }, 2000);
+  };
 
   const handleFilterChange = (e) => {
     const { name, value, checked } = e.target;
@@ -61,14 +71,6 @@ const ProductListing = () => {
     }
   };
 
-  //   const addToCart = (product) => {
-  //     console.log(product, 'adding to cart');
-  //   };
-
-  //   const addToWishlist = (product) => {
-  //     console.log(product, 'adding to wishlist');
-  //   };
-
   const filteredAndSortedProducts = useMemo(() => {
     let filteredProducts = products.filter((product) => {
       const categoryMatch =
@@ -90,6 +92,10 @@ const ProductListing = () => {
 
     return filteredProducts;
   }, [products, filters]);
+
+  const filteredProducts = filteredAndSortedProducts.filter((product) =>
+    product.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <>
@@ -257,20 +263,23 @@ const ProductListing = () => {
 
         <div className="products-container">
           <p>{loading}</p>
+          <h2 style={{ color: 'green' }}>{message}</h2>
           <h2>
             Showing All Groceries{' '}
-            <span>
-              (Showing all {filteredAndSortedProducts.length} products)
-            </span>{' '}
+            <span>(Showing all {filteredProducts.length} products)</span>{' '}
           </h2>
           <div className="row">
-            {filteredAndSortedProducts.map((product) => (
+            {filteredProducts.map((product) => (
               <div
                 key={product._id}
                 // onClick={() => handleProductClick(product._id)}
                 className="col-md-4"
               >
-                <ProductCard key={product._id} product={product} />
+                <ProductCard
+                  key={product._id}
+                  handleMessage={handleMessage}
+                  product={product}
+                />
               </div>
             ))}
           </div>
@@ -281,19 +290,3 @@ const ProductListing = () => {
 };
 
 export default ProductListing;
-
-/**
- * const filteredProduct = products.filter((product)=> {
-        if(filters.category !== "All" && filters.category !== product.category) return false;
-        if(product.rating < filters.rating) return false;
-        return true;
-    })
-
-    const sortedProducts = [...filteredProduct].sort((a,b)=> {
-        if(filters.sort === 'price-asc') return a.price - b.price;
-        else if(filters.sort === 'price-dsc') return b.price - a.price;
-        return 0;
-    })
-
-    
- */

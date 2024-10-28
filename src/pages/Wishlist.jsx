@@ -2,10 +2,13 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import WishlistCard from '../components/WishlistCard';
+import { useSearch } from './context/SerachProvider';
 import { useWishlist } from './context/WishlistProvider';
 
 const Wishlist = () => {
+  const { search } = useSearch();
   const [wishlist, setWishlist] = useState([]);
+  const [message, setMessage] = useState('');
   const userId = localStorage.getItem('authToken');
   // console.log(userId);
 
@@ -23,22 +26,34 @@ const Wishlist = () => {
     }
   };
 
+  const handleMessage = (msg) => {
+    setMessage(msg);
+    setTimeout(() => {
+      setMessage('');
+    }, 1000);
+  };
+
   useEffect(() => {
     getUserDetails();
   }, []);
+
+  const filteredWishlist = wishlist.filter((product) =>
+    product.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <>
       <Navbar />
       <div className="container my-4 text-center">
         <h1>My Wishlist</h1>
+        <h3 style={{ color: 'green' }}>{message}</h3>
         <div className="row">
           {wishlist.length === 0 ? (
             <p>Wishlist is empty, add items to wishlist</p>
           ) : (
-            wishlist.map((prod) => (
+            filteredWishlist.map((prod) => (
               <div key={prod._id} className="col-md-3">
-                <WishlistCard product={prod} />
+                <WishlistCard handleMessage={handleMessage} product={prod} />
               </div>
             ))
           )}

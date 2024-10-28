@@ -27,3 +27,24 @@
 .navbar .navbar-icons .nav-link:hover {
   color: #000;
 }
+
+/* for icons items count */
+
+/* Navbar.css */
+.nav-link {
+  position: relative;
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 3px 6px;
+  font-size: 10px;
+  font-weight: bold;
+}
