@@ -10,7 +10,9 @@ const Categories = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const data = await axios.get('http://localhost:3000/api/categories');
+      const data = await axios.get(
+        'https://grocer-ease-five.vercel.app/api/categories'
+      );
       setCategories(data.data.data.categories);
     };
     fetchCategories();

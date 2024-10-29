@@ -22,7 +22,9 @@ const ProductListing = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const data = await axios.get('http://localhost:3000/api/products');
+      const data = await axios.get(
+        'https://grocer-ease-five.vercel.app/api/products'
+      );
       setProducts(data.data.data.products);
       setLoading('');
     };

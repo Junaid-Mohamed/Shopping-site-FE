@@ -14,7 +14,7 @@ export const WishlistProvider = ({ children }) => {
     const fetchWishlist = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/users/wishlist/${userId}`
+          `https://grocer-ease-five.vercel.app/api/users/wishlist/${userId}`
         );
         setWishlist(response.data || []);
       } catch (error) {
@@ -30,7 +30,7 @@ export const WishlistProvider = ({ children }) => {
     const prod = { userId, productId };
     try {
       const resp = await axios.post(
-        'http://localhost:3000/api/users/wishlist/add-to-wishlist/',
+        'https://grocer-ease-five.vercel.app/api/users/wishlist/add-to-wishlist/',
         prod
       );
       if (resp.status == 200) {
