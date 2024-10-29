@@ -75,7 +75,7 @@ const Signup = () => {
     if (validate()) {
       //   console.log('FormData submitted.', formData);
       const data = await axios.post(
-        'http://localhost:3000/api/users/',
+        'https://grocer-ease-five.vercel.app/api/users/',
         formData
       );
       setSuccessMsg('Signed up successfully. Now you can login.');

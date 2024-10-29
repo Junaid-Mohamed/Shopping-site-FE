@@ -13,7 +13,9 @@ const UserProfile = () => {
 
   const getUserDetails = async () => {
     try {
-      const user = await axios.get(`http://localhost:3000/api/users/${userId}`);
+      const user = await axios.get(
+        `https://grocer-ease-five.vercel.app/api/users/${userId}`
+      );
       if (user) {
         // console.log(user);
         setUserProfile(user.data);

@@ -12,7 +12,7 @@ export const CartProvider = ({ children }) => {
   const fetchCart = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/users/cart/${userId}`
+        `https://grocer-ease-five.vercel.app/api/users/cart/${userId}`
       );
       setCart(response.data);
       calculateTotal(response.data);
@@ -37,7 +37,7 @@ export const CartProvider = ({ children }) => {
   const addToCart = async (productId) => {
     try {
       const resp = await axios.post(
-        'http://localhost:3000/api/users/cart/add-to-cart',
+        'https://grocer-ease-five.vercel.app/api/users/cart/add-to-cart',
         { userId, productId }
       );
       if (resp.status == 200) {
@@ -54,7 +54,7 @@ export const CartProvider = ({ children }) => {
     const prod = { userId, productId };
     try {
       const resp = await axios.delete(
-        'http://localhost:3000/api/users/cart/remove-from-cart',
+        'https://grocer-ease-five.vercel.app/api/users/cart/remove-from-cart',
         { data: prod }
       );
       if (resp.status == 200) {

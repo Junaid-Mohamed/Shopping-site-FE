@@ -47,7 +47,7 @@ export const WishlistProvider = ({ children }) => {
     console.log(prod);
     try {
       const resp = await axios.delete(
-        'http://localhost:3000/api/users/wishlist/remove-from-wishlist',
+        'https://grocer-ease-five.vercel.app/api/users/wishlist/remove-from-wishlist',
         { data: prod }
       );
       console.log(resp);

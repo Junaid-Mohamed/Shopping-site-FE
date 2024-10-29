@@ -41,7 +41,7 @@ const ProductDetails = () => {
     const fetchProductDetails = async () => {
       try {
         const product = await axios.get(
-          `http://localhost:3000/api/products/${id}`
+          `https://grocer-ease-five.vercel.app/api/products/${id}`
         );
         if (product) {
           setProduct(product.data);
