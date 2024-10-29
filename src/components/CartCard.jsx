@@ -4,7 +4,7 @@ import './cartCard.css';
 
 const CartCard = ({ product, quantity, handleMessage }) => {
   const { addToWishlist } = useWishlist();
-  const { removeFromCart } = useCart();
+  const { removeFromCart, addToCart, decreaseQuantityFromCart } = useCart();
 
   return (
     <div className="cart-card">
@@ -16,9 +16,9 @@ const CartCard = ({ product, quantity, handleMessage }) => {
         </h4>
         <p className="offer">50% off</p>
         <p className="quantity">
-          Quantity: <span className="decrease">-</span>
+          Quantity: <span onClick={()=> quantity>1? decreaseQuantityFromCart(product._id):alert("cannot decrement quantity more than 1")} className="decrease">-</span>
           <span className="count">{quantity}</span>
-          <span className="increase">+</span>
+          <span onClick={()=> addToCart(product._id)} className="increase">+</span>
         </p>
 
         <button
@@ -33,6 +33,7 @@ const CartCard = ({ product, quantity, handleMessage }) => {
         </button>
         <button
           onClick={() => {
+            quantity=1;
             addToWishlist(product._id);
             removeFromCart(product._id);
             setTimeout(() => {

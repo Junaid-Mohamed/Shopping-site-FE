@@ -21,6 +21,7 @@ const WishlistCard = ({ product, handleMessage }) => {
           setTimeout(() => {
             navigate('/users/cart');
           }, 2000);
+          removeFromWishlist(product._id)
         }}
         style={{ width: '100%' }}
         className="btn btn-secondary"

@@ -1,16 +1,22 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthProvider';
+import { useCart } from '../pages/context/CartProvider';
 import { useSearch } from '../pages/context/SerachProvider';
+import { useWishlist } from '../pages/context/WishlistProvider';
 import './Navbar.css';
 const Navbar = () => {
   const { isAuthenticated, logout } = useAuth();
 
   const { search, setSearch } = useSearch();
 
+  const {wishlist} = useWishlist();
+  const {cart} = useCart();
+
   const navigate = useNavigate();
 
-  let cartCount = 2;
-  let wishlistCount = 3;
+
+  let wishlistCount = wishlist.length || 0; 
+  let cartCount = cart.length || 0;
 
   return (
     <nav className="navbar navbar-light bg-light">

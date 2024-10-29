@@ -49,6 +49,23 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  // decrease quantity from cart
+
+  const decreaseQuantityFromCart = async(productId)=>{
+    try {
+      const resp = await axios.put(
+        'https://grocer-ease-five.vercel.app/api/users/cart/update-cart',
+        { userId, productId }
+      );
+      if (resp.status == 200) {
+        setCart(resp.data);
+        calculateTotal(resp.data);
+      }
+    } catch (error) {
+      console.log('Error adding to cart', error);
+    }
+  }
+
   const removeFromCart = async (productId) => {
     console.log(userId, productId);
     const prod = { userId, productId };
@@ -68,7 +85,7 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ cart, totalPrice, addToCart, removeFromCart, fetchCart }}
+      value={{ cart, totalPrice, addToCart, removeFromCart, fetchCart, decreaseQuantityFromCart }}
     >
       {children}
     </CartContext.Provider>
