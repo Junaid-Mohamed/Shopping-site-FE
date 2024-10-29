@@ -9,13 +9,12 @@ const Navbar = () => {
 
   const { search, setSearch } = useSearch();
 
-  const {wishlist} = useWishlist();
-  const {cart} = useCart();
+  const { wishlist } = useWishlist();
+  const { cart } = useCart();
 
   const navigate = useNavigate();
 
-
-  let wishlistCount = wishlist.length || 0; 
+  let wishlistCount = wishlist.length || 0;
   let cartCount = cart.length || 0;
 
   return (

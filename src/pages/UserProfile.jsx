@@ -7,7 +7,12 @@ import Navbar from '../components/Navbar';
 const UserProfile = () => {
   const [userProfile, setUserProfile] = useState({});
   const [editAddress, setEditAddress] = useState(null);
-  const [newAddress, setNewAddress] = useState({ street: '', city: '', state: '', postalCode: '' });
+  const [newAddress, setNewAddress] = useState({
+    street: '',
+    city: '',
+    state: '',
+    postalCode: '',
+  });
   const [selectedAddress, setSelectedAddress] = useState(null); // State for selected delivery address
 
   const { getUserId } = useAuth();
@@ -16,7 +21,9 @@ const UserProfile = () => {
   // Fetch user details
   const getUserDetails = async () => {
     try {
-      const response = await axios.get(`https://grocer-ease-five.vercel.app/api/users/${userId}`);
+      const response = await axios.get(
+        `https://grocer-ease-five.vercel.app/api/users/${userId}`
+      );
       setUserProfile(response.data);
     } catch (error) {
       console.log(error);
@@ -30,7 +37,10 @@ const UserProfile = () => {
   // Add new address
   const handleAddAddress = async () => {
     try {
-      const response = await axios.put(`https://grocer-ease-five.vercel.app/api/users/${userId}/address`, newAddress);
+      const response = await axios.put(
+        `https://grocer-ease-five.vercel.app/api/users/${userId}/address`,
+        newAddress
+      );
       setUserProfile(response.data);
       setNewAddress({ street: '', city: '', state: '', postalCode: '' });
     } catch (error) {
@@ -55,7 +65,9 @@ const UserProfile = () => {
   // Delete address
   const handleDeleteAddress = async (addressId) => {
     try {
-      const response = await axios.delete(`https://grocer-ease-five.vercel.app/api/users/${userId}/address/${addressId}`);
+      const response = await axios.delete(
+        `https://grocer-ease-five.vercel.app/api/users/${userId}/address/${addressId}`
+      );
       setUserProfile(response.data);
     } catch (error) {
       console.log(error);
@@ -88,34 +100,56 @@ const UserProfile = () => {
             <li
               key={addr._id}
               style={{
-                border: addr._id === selectedAddress ? '2px solid black' : '1px solid #ccc',
+                border:
+                  addr._id === selectedAddress
+                    ? '2px solid black'
+                    : '1px solid #ccc',
                 padding: '10px',
                 borderRadius: '5px',
                 margin: '10px 0',
-                width:  '50%',
-                listStyle:'none'
+                width: '50%',
+                listStyle: 'none',
               }}
             >
               {addr.street}, {addr.city}, {addr.state}, {addr.postalCode} <br />
-              <button className='btn btn-primary mt-2 mx-2' onClick={() => setEditAddress(addr)}>Edit</button>
-              <button className='btn btn-danger mt-2 mx-2' onClick={() => handleDeleteAddress(addr._id)}>Delete</button>
-              <button className='btn btn-primary mt-2 mx-2' onClick={() => handleSelectAddress(addr._id)}>
-                {addr._id === selectedAddress ? 'Selected for Delivery' : 'Select for Delivery'}
+              <button
+                className="btn btn-primary mt-2 mx-2"
+                onClick={() => setEditAddress(addr)}
+              >
+                Edit
+              </button>
+              <button
+                className="btn btn-danger mt-2 mx-2"
+                onClick={() => handleDeleteAddress(addr._id)}
+              >
+                Delete
+              </button>
+              <button
+                className="btn btn-primary mt-2 mx-2"
+                onClick={() => handleSelectAddress(addr._id)}
+              >
+                {addr._id === selectedAddress
+                  ? 'Selected for Delivery'
+                  : 'Select for Delivery'}
               </button>
             </li>
           ))}
         </ul>
 
         {/* Add new address form */}
-        <h3 className='mt-4' >{editAddress ? "Edit Address" : "Add New Address"}</h3>
+        <h3 className="mt-4">
+          {editAddress ? 'Edit Address' : 'Add New Address'}
+        </h3>
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            editAddress ? handleEditAddress(editAddress._id) : handleAddAddress();
+            editAddress
+              ? handleEditAddress(editAddress._id)
+              : handleAddAddress();
           }}
         >
           <input
-          className='m-2'
+            className="m-2"
             type="text"
             placeholder="Street"
             value={editAddress ? editAddress.street : newAddress.street}
@@ -134,9 +168,10 @@ const UserProfile = () => {
                 ? setEditAddress({ ...editAddress, city: e.target.value })
                 : setNewAddress({ ...newAddress, city: e.target.value })
             }
-          /> <br />
+          />{' '}
+          <br />
           <input
-          className='m-2'
+            className="m-2"
             type="text"
             placeholder="State"
             value={editAddress ? editAddress.state : newAddress.state}
@@ -156,8 +191,12 @@ const UserProfile = () => {
                 : setNewAddress({ ...newAddress, postalCode: e.target.value })
             }
           />
-          <button className='btn btn-secondary mx-2' type="submit">{editAddress ? "Update Address" : "Add Address"}</button>
-          {editAddress && <button onClick={() => setEditAddress(null)}>Cancel</button>}
+          <button className="btn btn-secondary mx-2" type="submit">
+            {editAddress ? 'Update Address' : 'Add Address'}
+          </button>
+          {editAddress && (
+            <button onClick={() => setEditAddress(null)}>Cancel</button>
+          )}
         </form>
 
         <Link className="btn btn-info m-4" to={'/products'}>
