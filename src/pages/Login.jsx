@@ -20,7 +20,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const data = await axios.post(
-        'https://grocer-ease-five.vercel.app//api/users/login',
+        'https://grocer-ease-five.vercel.app/api/users/login',
         formData
       );
       if (data.status == 200) {
