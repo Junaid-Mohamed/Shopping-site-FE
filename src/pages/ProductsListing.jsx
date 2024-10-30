@@ -107,7 +107,19 @@ const ProductListing = () => {
         <div className="filters-container">
           <div className="filter-heading">
             <h4>Filters</h4>
-            <a>Clear</a>
+            <a
+              style={{ cursor: 'pointer' }}
+              onClick={() =>
+                setFilters({
+                  price: 0,
+                  category: [],
+                  rating: 0,
+                  sort: 'price-asc',
+                })
+              }
+            >
+              Clear
+            </a>
           </div>
           <div className="filter-price">
             <h4>Price</h4>
