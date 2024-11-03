@@ -55,6 +55,23 @@ const Login = () => {
   return (
     <div className="container m-4 p-4 w-50">
       <h1 className="my-4"> Login</h1>
+
+      <div className="my-4">
+        <div className="card">
+          <div className="card-header">
+            Test details to test the application functionlaity
+          </div>
+          <div className="card-body">
+            <p className="card-text">email: test@gmail.com</p>
+            <p className="card-text">password: TestPass</p>
+            <hr />
+            <p className="btn btn-info">
+              Note: If you wish to signup you can go to signup page.
+            </p>
+          </div>
+        </div>
+      </div>
+
       <form>
         <div className="form-group">
           <label>Email address</label>
