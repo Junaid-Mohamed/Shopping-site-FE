@@ -9,6 +9,7 @@ const Wishlist = () => {
   const { search } = useSearch();
   const [wishlist, setWishlist] = useState([]);
   const [message, setMessage] = useState('');
+  const [loading,setLoading] = useState(true)
   const userId = localStorage.getItem('authToken');
   // console.log(userId);
 
@@ -20,6 +21,7 @@ const Wishlist = () => {
       if (user) {
         // setWishlist((prevState)=>[...prevState,{user.wishlist}]);
         setWishlist(user.data.wishlist);
+        setLoading(!loading);
       } else {
         console.log('User not found.');
       }
@@ -50,7 +52,7 @@ const Wishlist = () => {
         <h1>My Wishlist</h1>
         <h3 style={{ color: 'green' }}>{message}</h3>
         <div className="row">
-          {wishlist.length === 0 ? (
+          {!loading?(wishlist.length === 0 ? (
             <p>Wishlist is empty, add items to wishlist</p>
           ) : (
             filteredWishlist.map((prod) => (
@@ -58,7 +60,7 @@ const Wishlist = () => {
                 <WishlistCard handleMessage={handleMessage} product={prod} />
               </div>
             ))
-          )}
+          )):<p>Loading....</p>}
         </div>
       </div>
     </>

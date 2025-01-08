@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import fruits from '../assets/images/fruits&veggies.jpg';
 import { useCart } from '../pages/context/CartProvider';
 import { useWishlist } from '../pages/context/WishlistProvider';
+import { StarRating } from '../pages/ProductDetails';
 import './productCard.css';
 
 const ProductCard = ({ product, handleMessage }) => {
@@ -24,7 +25,13 @@ const ProductCard = ({ product, handleMessage }) => {
       />
       <div className="product-details">
         <h3 className="product-name">{product.name}</h3>
-        <p className="product-price">{product.price}</p>
+        <p className="product-price">Rs. {product.price}</p>
+        <p className="rating">
+              {product.rating}{' '}
+              <span>
+                <StarRating rating={product.rating} />
+              </span>
+            </p>
         <div className="product-actions">
           <button
             className="btn btn-primary"

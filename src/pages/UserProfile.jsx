@@ -95,7 +95,7 @@ const UserProfile = () => {
         </p>
 
         <h3>Addresses:</h3>
-        <ul>
+        
           {userProfile?.address?.map((addr) => (
             <li
               key={addr._id}
@@ -134,7 +134,7 @@ const UserProfile = () => {
               </button>
             </li>
           ))}
-        </ul>
+        
 
         {/* Add new address form */}
         <h3 className="mt-4">
@@ -149,7 +149,7 @@ const UserProfile = () => {
           }}
         >
           <input
-            className="m-2"
+            className="my-2 me-3"
             type="text"
             placeholder="Street"
             value={editAddress ? editAddress.street : newAddress.street}
@@ -171,7 +171,7 @@ const UserProfile = () => {
           />{' '}
           <br />
           <input
-            className="m-2"
+            className="my-2 me-3"
             type="text"
             placeholder="State"
             value={editAddress ? editAddress.state : newAddress.state}
@@ -199,7 +199,7 @@ const UserProfile = () => {
           )}
         </form>
 
-        <Link className="btn btn-info m-4" to={'/products'}>
+        <Link className="btn btn-info" to={'/products'}>
           Explore Products
         </Link>
         <Link className="btn btn-info m-4" to={'/users/cart'}>

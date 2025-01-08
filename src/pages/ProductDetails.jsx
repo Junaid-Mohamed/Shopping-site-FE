@@ -13,7 +13,7 @@ import Navbar from '../components/Navbar';
 import { useCart } from './context/CartProvider';
 import './productDetails.css';
 
-const StarRating = ({ rating }) => {
+export const StarRating = ({ rating }) => {
   const stars = [];
 
   for (let i = 1; i <= 5; i++) {
@@ -76,7 +76,7 @@ const ProductDetails = () => {
           </div>
           <div className="details-container">
             <p className="description">
-              {product.name} {product.description}
+              {product.name}
             </p>
             <p className="rating">
               {product.rating}{' '}
@@ -92,6 +92,9 @@ const ProductDetails = () => {
               Quantity: <span className="decrease">-</span>
               <span className="count">{1}</span>
               <span className="increase">+</span>
+            </p>
+            <p className="desc">
+              Description: {product.description}
             </p>
             <hr />
             <div className="features">
