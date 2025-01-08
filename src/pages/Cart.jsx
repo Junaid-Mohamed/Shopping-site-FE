@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import CartCard from '../components/CartCard';
 import Navbar from '../components/Navbar';
 import './cart.css';
@@ -8,9 +9,10 @@ import { useSearch } from './context/SerachProvider';
 const Cart = () => {
   const { search } = useSearch();
 
-  const { cart, totalPrice, fetchCart } = useCart();
+  const { cart, totalPrice, fetchCart, clearCart } = useCart();
 
   const [message, setMessage] = useState('');
+  const [loading,setLoading] = useState(true);
 
   const handleMessage = (msg) => {
     setMessage(msg);
@@ -19,8 +21,14 @@ const Cart = () => {
     }, 2000);
   };
 
+  const handlePlaceOrder = () => {
+    handleMessage('Order Placed Successfully');
+    clearCart();
+  }
+
   useEffect(() => {
     fetchCart();
+    setLoading(false);
   }, []);
 
   const filteredCart = cart.filter((item) =>
@@ -33,6 +41,7 @@ const Cart = () => {
       <div className="my-4 text-center">
         <h1>My Cart ({cart.length}) </h1>
         <h3 style={{ color: 'green' }}>{message}</h3>
+        {loading? <p>Loading....</p>:<>
         {cart.length > 0 ? (
           <div className="cart-container">
             <div className="cart-items mt-2">
@@ -71,14 +80,18 @@ const Cart = () => {
               <p className="discount">
                 You will save ₹{totalPrice * 0.5} on this order
               </p>
-              <button style={{ width: '100%' }} className="btn btn-primary">
+              <button onClick={handlePlaceOrder} style={{ width: '100%' }} className="btn btn-primary">
                 Place order
               </button>
             </div>
           </div>
         ) : (
-          <div>Cart is empty. Add items to cart</div>
+          <div>
+            <p>Cart is empty. Add items to cart</p>
+            <Link to={'/products'} className='btn btn-secondary' >Continue Shopping</Link>
+             </div>
         )}
+        </>}
       </div>
     </main>
   );

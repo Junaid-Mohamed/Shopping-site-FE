@@ -24,6 +24,17 @@ export const CartProvider = ({ children }) => {
     fetchCart();
   }, []);
 
+  const clearCart = async () => {
+    try {
+      const response = await axios.put(
+        `https://grocer-ease-five.vercel.app/api/users/cart/clear/${userId}`
+      );
+      setCart([]);
+    } catch (error) {
+      console.log(`error fetching cart items`, error);
+    }
+  };
+
   const calculateTotal = (cartItems) => {
     const total = cartItems?.reduce(
       (acc, curr) => acc + curr.product.price * curr.quantity,
@@ -92,6 +103,7 @@ export const CartProvider = ({ children }) => {
         removeFromCart,
         fetchCart,
         decreaseQuantityFromCart,
+        clearCart
       }}
     >
       {children}

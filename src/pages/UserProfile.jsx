@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../auth/AuthProvider';
 import Navbar from '../components/Navbar';
 
+
 const UserProfile = () => {
+  const [activeTab,setActiveTab] = useState('profile');
   const [userProfile, setUserProfile] = useState({});
   const [editAddress, setEditAddress] = useState(null);
   const [newAddress, setNewAddress] = useState({
@@ -79,10 +81,22 @@ const UserProfile = () => {
     setSelectedAddress(addressId);
   };
 
+  //  set active tab
+  const handleActiveTab = (tab) => {
+    setActiveTab(tab);
+  }
+
   return (
     <>
       <Navbar />
       <div className="container my-4">
+        <div className="my-4 w-50 d-flex justify-content-between">
+          <button onClick={()=>handleActiveTab('profile')} className={`btn btn-outline-dark ${activeTab==='profile'? 'active':''}`} >User Profile</button>
+          <button onClick={()=>handleActiveTab('addresses')} className={`btn btn-outline-dark ${activeTab==='addresses'? 'active':''}`} >Addresses</button>
+          <button onClick={()=>handleActiveTab('orderHistory')} className={`btn btn-outline-dark ${activeTab==='orderHistory'? 'active':''}`} >Order History</button>
+        </div>
+        {activeTab === 'profile' && 
+        <>
         <h1>User Profile</h1>
         <p>
           <strong>Name:</strong> {userProfile.name}
@@ -93,7 +107,10 @@ const UserProfile = () => {
         <p>
           <strong>Phone Number:</strong> {userProfile.phoneNumber}
         </p>
+        </>
+        }
 
+        {activeTab === 'addresses' && <>
         <h3>Addresses:</h3>
         
           {userProfile?.address?.map((addr) => (
@@ -198,6 +215,11 @@ const UserProfile = () => {
             <button onClick={() => setEditAddress(null)}>Cancel</button>
           )}
         </form>
+        </>}
+
+          {activeTab === 'orderHistory' && <>
+          <h1>Order History</h1>
+          </>}
 
         <Link className="btn btn-info" to={'/products'}>
           Explore Products
