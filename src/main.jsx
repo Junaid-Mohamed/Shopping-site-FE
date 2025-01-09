@@ -8,15 +8,16 @@ import { AuthProvider } from './auth/AuthProvider.jsx';
 import ProtectedRoute from './auth/ProtectedRoute.jsx';
 import './index.css';
 import Cart from './pages/Cart.jsx';
+import { CartProvider } from './pages/context/CartProvider.jsx';
+import { SearchProvider } from './pages/context/SerachProvider.jsx';
+import { WishlistProvider } from './pages/context/WishlistProvider.jsx';
 import Login from './pages/Login.jsx';
+import OrderSuccess from './pages/OrderSuccess.jsx';
 import ProductDetails from './pages/ProductDetails.jsx';
 import ProductListing from './pages/ProductsListing.jsx';
 import Signup from './pages/Signup.jsx';
 import UserProfile from './pages/UserProfile.jsx';
 import Wishlist from './pages/Wishlist.jsx';
-import { CartProvider } from './pages/context/CartProvider.jsx';
-import { SearchProvider } from './pages/context/SerachProvider.jsx';
-import { WishlistProvider } from './pages/context/WishlistProvider.jsx';
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: '/users/cart',
     element: <ProtectedRoute element={<Cart />} />,
+  },
+  {
+    path: '/order/success',
+    element: <ProtectedRoute element={<OrderSuccess />} />,
   },
   {
     path: '/login',

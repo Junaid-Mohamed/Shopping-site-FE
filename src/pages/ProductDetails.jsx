@@ -8,7 +8,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { useCart } from './context/CartProvider';
 import './productDetails.css';
@@ -35,6 +35,7 @@ const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
 
+  const navigate = useNavigate();
   const { addToCart } = useCart();
 
   useEffect(() => {
@@ -66,7 +67,10 @@ const ProductDetails = () => {
               className="product-image"
               alt={product.name}
             />
-            <button className="btn btn-primary button">Buy Now</button>
+            <button
+            onClick={()=>{addToCart(product._id)
+               navigate('/users/cart')}}
+            className="btn btn-primary button">Buy Now</button>
             <button
               onClick={() => addToCart(product._id)}
               className="btn btn-secondary button"

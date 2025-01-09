@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthProvider';
 import CartCard from '../components/CartCard';
 import Navbar from '../components/Navbar';
@@ -17,7 +17,7 @@ const Cart = () => {
   const [loading,setLoading] = useState(true);
   const [userProfile, setUserProfile] = useState({});
   const [selectedAddress, setSelectedAddress] = useState(null); // State for selected delivery address
-
+  const navigate = useNavigate();
    const { getUserId } = useAuth();
     const userId = getUserId();
 
@@ -43,9 +43,8 @@ const Cart = () => {
   const handlePlaceOrder = async() => {
     if(selectedAddress){
       const deliveryAddress = userProfile.address.filter(addr=>addr._id===selectedAddress)
-      // console.log(deliveryAddress[0]);
       placeOrder(cart,totalPrice + totalPrice * 0.2,deliveryAddress[0]);
-      handleMessage('Order Placed Successfully');
+      navigate('/order/success');
     }
     else{
       alert('Please select address to place order')
