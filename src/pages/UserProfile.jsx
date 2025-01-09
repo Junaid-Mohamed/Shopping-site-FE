@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../auth/AuthProvider';
 import Navbar from '../components/Navbar';
+import { useCart } from './context/CartProvider';
+import { StarRating } from './ProductDetails';
 
 
 const UserProfile = () => {
@@ -15,7 +17,7 @@ const UserProfile = () => {
     state: '',
     postalCode: '',
   });
-  const [selectedAddress, setSelectedAddress] = useState(null); // State for selected delivery address
+  const { orderHistory, fetchOrderHistory } = useCart();
 
   const { getUserId } = useAuth();
   const userId = getUserId();
@@ -34,6 +36,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     getUserDetails();
+    fetchOrderHistory();
   }, []);
 
   // Add new address
@@ -45,6 +48,7 @@ const UserProfile = () => {
       );
       setUserProfile(response.data);
       setNewAddress({ street: '', city: '', state: '', postalCode: '' });
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -76,15 +80,16 @@ const UserProfile = () => {
     }
   };
 
-  // Select address for delivery
-  const handleSelectAddress = (addressId) => {
-    setSelectedAddress(addressId);
-  };
-
   //  set active tab
   const handleActiveTab = (tab) => {
     setActiveTab(tab);
   }
+
+  // Format the date and time
+const options = {
+  year: 'numeric', month: 'long', day: 'numeric',
+  hour: '2-digit', minute: '2-digit', second: '2-digit'
+};
 
   return (
     <>
@@ -117,10 +122,7 @@ const UserProfile = () => {
             <li
               key={addr._id}
               style={{
-                border:
-                  addr._id === selectedAddress
-                    ? '2px solid black'
-                    : '1px solid #ccc',
+                border:'1px solid #ccc',
                 padding: '10px',
                 borderRadius: '5px',
                 margin: '10px 0',
@@ -140,14 +142,6 @@ const UserProfile = () => {
                 onClick={() => handleDeleteAddress(addr._id)}
               >
                 Delete
-              </button>
-              <button
-                className="btn btn-primary mt-2 mx-2"
-                onClick={() => handleSelectAddress(addr._id)}
-              >
-                {addr._id === selectedAddress
-                  ? 'Selected for Delivery'
-                  : 'Select for Delivery'}
               </button>
             </li>
           ))}
@@ -219,14 +213,43 @@ const UserProfile = () => {
 
           {activeTab === 'orderHistory' && <>
           <h1>Order History</h1>
+          <div className='col-md-8' >
+            {orderHistory.map(order=>(
+              <div className='card my-4'  key={order._id} >
+                {order.items.map(item=>(
+                  <div key={item._id} className='cart-card m-2 px-4' >
+                    <img src={item.product.image} alt={item.product.name} className="cart-image" />
+                    <div className='cart-details' >
+                        <p className='fs-4' >{item.product.name}</p>
+                        <p>Price: Rs. {item.product.price}</p>
+                        <p className="rating">
+                                      {item.product.rating}{' '}
+                                      <span>
+                                        <StarRating rating={item.product.rating} />
+                                      </span>
+                        </p>
+                        <p>Quantity: {item.quantity}</p>
+                    </div>
+                  </div>
+                ))}
+                <div className='m-2 px-4' >
+                <p><strong>Order Amount</strong>: Rs. {order.totalAmount}</p>
+                <p><strong>Order Date</strong>: {new Date(order.orderDate).toLocaleDateString('en-US',options)}</p>
+                <p><strong>Order Delivered Address: </strong>: {`${order.address.street} ${order.address.city} ${order.address.state} ${order.address.postalCode}`}</p>
+                </div>
+              </div>
+            ))}
+          </div>
           </>}
 
+        {activeTab !== 'orderHistory' && <>
         <Link className="btn btn-info" to={'/products'}>
           Explore Products
         </Link>
         <Link className="btn btn-info m-4" to={'/users/cart'}>
           Checkout
         </Link>
+        </>}
       </div>
     </>
   );

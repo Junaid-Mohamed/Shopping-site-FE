@@ -1,5 +1,7 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../auth/AuthProvider';
 import CartCard from '../components/CartCard';
 import Navbar from '../components/Navbar';
 import './cart.css';
@@ -9,10 +11,15 @@ import { useSearch } from './context/SerachProvider';
 const Cart = () => {
   const { search } = useSearch();
 
-  const { cart, totalPrice, fetchCart, clearCart } = useCart();
-
+  const { cart, totalPrice, fetchCart, placeOrder } = useCart();
+  const [placeOrderCheck,setPlaceOrder] = useState(false);
   const [message, setMessage] = useState('');
   const [loading,setLoading] = useState(true);
+  const [userProfile, setUserProfile] = useState({});
+  const [selectedAddress, setSelectedAddress] = useState(null); // State for selected delivery address
+
+   const { getUserId } = useAuth();
+    const userId = getUserId();
 
   const handleMessage = (msg) => {
     setMessage(msg);
@@ -21,19 +28,44 @@ const Cart = () => {
     }, 2000);
   };
 
-  const handlePlaceOrder = () => {
-    handleMessage('Order Placed Successfully');
-    clearCart();
+   // Fetch user details
+   const getUserDetails = async () => {
+    try {
+      const response = await axios.get(
+        `https://grocer-ease-five.vercel.app/api/users/${userId}`
+      );
+      setUserProfile(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handlePlaceOrder = async() => {
+    if(selectedAddress){
+      const deliveryAddress = userProfile.address.filter(addr=>addr._id===selectedAddress)
+      // console.log(deliveryAddress[0]);
+      placeOrder(cart,totalPrice + totalPrice * 0.2,deliveryAddress[0]);
+      handleMessage('Order Placed Successfully');
+    }
+    else{
+      alert('Please select address to place order')
+    }
   }
 
   useEffect(() => {
-    fetchCart();
-    setLoading(false);
+    fetchCart(setLoading);
+    getUserDetails();
   }, []);
 
   const filteredCart = cart.filter((item) =>
     item.product.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  // Select address for delivery
+  const handleSelectAddress = (addressId) => {
+    setSelectedAddress(addressId);
+  };
+
   return (
     <main className="cart">
       <Navbar />
@@ -80,9 +112,44 @@ const Cart = () => {
               <p className="discount">
                 You will save ₹{totalPrice * 0.5} on this order
               </p>
+              {placeOrderCheck && <>
+              <h3>Select Address:</h3>
+          {userProfile?.address?.map((addr) => (
+            <li
+              key={addr._id}
+              style={{
+                border:
+                  addr._id === selectedAddress
+                    ? '2px solid black'
+                    : '1px solid #ccc',
+                padding: '10px',
+                borderRadius: '5px',
+                margin: '10px 0',
+                listStyle: 'none',
+              }}
+            >
+              {addr.street}, {addr.city}, {addr.state}, {addr.postalCode} <br /> 
+              <button
+                className="btn btn-primary mt-2 mx-2"
+                onClick={() => handleSelectAddress(addr._id)}
+              >
+                {addr._id === selectedAddress
+                  ? 'Selected for Delivery'
+                  : 'Select for Delivery'}
+              </button>
+            </li>
+          ))}
+              <Link to={'/users/user-profile'} style={{ width: '100%' }} className="btn btn-outline-primary my-2">
+                Add New Address
+              </Link>
               <button onClick={handlePlaceOrder} style={{ width: '100%' }} className="btn btn-primary">
                 Place order
               </button>
+              
+              </>}
+              { !placeOrderCheck && <button onClick={()=>setPlaceOrder(true)} style={{ width: '100%' }} className="btn btn-primary">
+                Select Address & Place order
+              </button>}
             </div>
           </div>
         ) : (

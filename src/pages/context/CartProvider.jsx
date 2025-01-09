@@ -6,23 +6,22 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [orderHistory, setOrders] = useState([]);
 
   const userId = localStorage.getItem('authToken');
 
-  const fetchCart = async () => {
+  const fetchCart = async (setLoading) => {
     try {
       const response = await axios.get(
         `https://grocer-ease-five.vercel.app/api/users/cart/${userId}`
       );
       setCart(response.data);
       calculateTotal(response.data);
+      setLoading(false)
     } catch (error) {
       console.log(`error fetching cart items`, error);
     }
   };
-  useEffect(() => {
-    fetchCart();
-  }, []);
 
   const clearCart = async () => {
     try {
@@ -78,7 +77,6 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = async (productId) => {
-    console.log(userId, productId);
     const prod = { userId, productId };
     try {
       const resp = await axios.delete(
@@ -94,16 +92,41 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  //  place order
+
+  const placeOrder = async (cart,totalPrice,address) => {
+    try {
+      await axios.post(`https://grocer-ease-five.vercel.app/api/users/${userId}/orders`,{cart,totalPrice,address})
+      clearCart();
+    } catch (error) {
+      console.log('error placing orders.');
+    }
+  }
+
+  const fetchOrderHistory = async () => {
+    try {
+      const response = await axios.get(
+        `https://grocer-ease-five.vercel.app/api/users/${userId}/orders`
+      );
+      // console.log(response);
+      setOrders(response.data);
+    } catch (error) {
+      console.log(`error fetching cart items`, error);
+    }
+  };
+
   return (
     <CartContext.Provider
       value={{
         cart,
         totalPrice,
+        orderHistory,
         addToCart,
         removeFromCart,
         fetchCart,
+        fetchOrderHistory,
         decreaseQuantityFromCart,
-        clearCart
+        placeOrder
       }}
     >
       {children}
